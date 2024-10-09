@@ -10,7 +10,7 @@ import Overview from "./VueComponents/Overview.vue";
 const app = createApp({});
 
 app.use(i18nVue, {
-    resolve: lang => import(`../../lang/${lang}.json`),
+    resolve: lang => import(`../../lang/php_${lang}.json`),
 });
 
 app.use(flashToast);
