@@ -1,6 +1,4 @@
 <?php
+use Illuminate\Support\Facades\Schedule;
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
-
-Artisan::command('app:used-medicaments-command', function () {})->purpose('Remove used medicaments')->dailyAt('00:00');
+Schedule::command('app:used-medicaments-command')->dailyAt('00:00');
