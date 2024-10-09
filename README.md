@@ -13,5 +13,5 @@ If you are at the Doctor, you simply type in the date of the next appointment an
 To remove the used medicals, a cronjob is needed. The cronjob is executed every day at 0:00am.
 
 ```bash
-  * * * * * cd /path/to/your/project && php artisan schedule:run >> /dev/null 2>&1
+  * * * * * cd /path/to/your/MediPlan && php artisan schedule:run
 ```
