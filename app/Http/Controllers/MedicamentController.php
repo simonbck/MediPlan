@@ -6,9 +6,7 @@ use App\Http\Requests\DeleteMedicamentRequest;
 use App\Http\Requests\StoreMedicamentRequest;
 use App\Http\Requests\UpdateMedicamentRequest;
 use App\Models\Medicament;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class MedicamentController extends Controller
@@ -39,7 +37,6 @@ class MedicamentController extends Controller
             'title' => __('medicationplan.success_title'),
             'message' =>  __('medicationplan.success_message'),
         ]);
-
     }
 
     /**
