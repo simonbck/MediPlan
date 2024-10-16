@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DeleteMedicamentRequest;
+use App\Http\Requests\StoreMedicamentRequest;
 use App\Http\Requests\UpdateMedicamentRequest;
 use App\Models\Medicament;
 use Illuminate\Http\Request;
@@ -29,19 +30,10 @@ class MedicamentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMedicamentRequest $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'dose' => 'required|integer',
-            'unit' =>  Rule::in(['mg', 'ug', 'ml']),
-            'pieces_morning' => 'required|integer',
-            'pieces_midday' => 'required|integer',
-            'pieces_evening' => 'required|integer',
-            'pieces_night' => 'required|integer'
-        ]);
 
-        Medicament::create($request->all() + ['user_id' => Auth::user()->id]);
+        Medicament::create($request->validated() + ['user_id' => Auth::user()->id]);
 
         return response()->json([
             'title' => __('medicationplan.success_title'),
