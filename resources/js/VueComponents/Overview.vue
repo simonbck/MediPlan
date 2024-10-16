@@ -80,7 +80,7 @@ export default {
                 let year = new Intl.DateTimeFormat(navigator.language, { year: 'numeric' }).format(till_date);
                 let month = new Intl.DateTimeFormat(navigator.language, { month: 'numeric' }).format(till_date);
                 let day = new Intl.DateTimeFormat(navigator.language, { day: '2-digit' }).format(till_date);
-                console.log(`${day}-${month}-${year}`);
+
                 if(navigator.language === 'de') {
                     value.on_stock_until = day+'.'+month+'.'+year;
                 } else {
