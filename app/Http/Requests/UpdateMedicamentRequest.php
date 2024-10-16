@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class UpdateMedicamentRequest extends FormRequest
 {
+    protected function prepareForValidation()
+    {
+        $this->merge(['id' => $this->route('id')]);
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,6 +29,9 @@ class UpdateMedicamentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'id' => 'required|integer|exists:medicaments,id',
+            'pieces' => 'required|integer'
+        ];
     }
 }

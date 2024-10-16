@@ -64,7 +64,7 @@ class MedicamentController extends Controller
     public function update(UpdateMedicamentRequest $request, string $id)
     {
         $medicament = Medicament::find($id);
-        $newPieces = $medicament->pieces + $request->pieces;
+        $newPieces = $medicament->pieces + $request->validated('pieces');
         $medicament->update(['pieces' => $newPieces]);
 
         return response()->json([
@@ -76,9 +76,9 @@ class MedicamentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DeleteMedicamentRequest $request, string $id)
+    public function destroy(DeleteMedicamentRequest $request)
     {
-        $medicament = Medicament::find($id);
+        $medicament = Medicament::find($request->validated('id'));
         $medicament->delete();
         return response()->json([
             'title' => __('medicationplan.success_delete_title'),
