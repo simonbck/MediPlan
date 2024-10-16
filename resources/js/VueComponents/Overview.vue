@@ -104,7 +104,7 @@ export default {
 
         <div class="col-6" v-for="(item, index) in medicaments" :key="index">
             <div :class="item.color">
-                <div class="card-header">{{ item.name+" "+item.dose }}</div>
+                <div class="card-header">{{ `${item.name} ${item.dose}` }}</div>
                 <div class="card-body">
                     <p class="card-text">{{ $t('overview.on_stock')}} {{ item.pieces }}<br>{{ $t('overview.on_stock_until')}} {{ item.on_stock_until }}</p>
                 </div>
@@ -137,7 +137,7 @@ export default {
                             <option v-for="(item, index) in medicaments"
                                     :value="item.id"
                                     :key="index">
-                                {{ item.name+" "+item.dose}}
+                                {{ `${item.name} ${item.dose}`}}
                             </option>
                         </select>
                     </div>
