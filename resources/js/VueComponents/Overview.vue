@@ -43,7 +43,7 @@ export default {
                 pieces: this.medicament.pieces
             };
 
-            axios.post('/api/updatemedicament/'+this.medicament.id,  data).then(response => {
+            axios.patch('/api/medicament/'+this.medicament.id,  data).then(response => {
                 this.medicament = {};
                 this.toast.success({
                     title: response.data.title,

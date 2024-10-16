@@ -32,7 +32,7 @@ export default {
                 pieces_night: this.medicament.pieces_night,
             };
 
-            axios.post('/api/addmedicament',  data).then(response => {
+            axios.post('/api/medicament',  data).then(response => {
                 this.medicament = {};
                 this.toast.success({
                     title: response.data.title,
