@@ -9,7 +9,7 @@ export default {
     },
     methods: {
         delete(rowData) {
-            axios.post('/api/deletemedicament/'+rowData.id, {}).then(response => {
+            axios.delete('/api/medicament/'+rowData.id, {}).then(response => {
                 this.medicament = {};
                 this.toast.success({
                     title: response.data.title,

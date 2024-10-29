@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         save() {
-            let data = {
+            const data = {
                 name: this.medicament.name,
                 dose: this.medicament.dose,
                 unit: this.medicament.unit,
@@ -32,7 +32,7 @@ export default {
                 pieces_night: this.medicament.pieces_night,
             };
 
-            axios.post('/api/addmedicament',  data).then(response => {
+            axios.post('/api/medicament',  data).then(response => {
                 this.medicament = {};
                 this.toast.success({
                     title: response.data.title,
@@ -98,9 +98,9 @@ export default {
                     </div>
                     <div class="col-2">
                         <select v-model="medicament.unit" class="form-select" name="unit">
-                            <option :value="'mg'" value="mg">{{ $t('medicationplan.milligram') }}</option>
-                            <option :value="'ml'" value="ml">{{ $t('medicationplan.milliliter') }}</option>
-                            <option :value="'ug'" value="ug">{{ $t('medicationplan.microgram') }}</option>
+                            <option :value="'mg'">{{ $t('medicationplan.milligram') }}</option>
+                            <option :value="'ml'">{{ $t('medicationplan.milliliter') }}</option>
+                            <option :value="'ug'">{{ $t('medicationplan.microgram') }}</option>
                         </select>
                     </div>
                 </div>
