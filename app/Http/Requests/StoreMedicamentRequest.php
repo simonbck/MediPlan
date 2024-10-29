@@ -2,24 +2,17 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Medicament;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
-class UpdateMedicamentRequest extends FormRequest
+class StoreMedicamentRequest extends FormRequest
 {
-    protected function prepareForValidation()
-    {
-        $this->merge(['id' => $this->route('id')]);
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $medicament = Medicament::find($this->route('id'));
-        return $this->user()->can('update', $medicament);
+        return true;
     }
 
     /**
@@ -30,8 +23,13 @@ class UpdateMedicamentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer|exists:medicaments,id',
-            'pieces' => 'required|integer'
+            'name' => 'required|max:255',
+            'dose' => 'required|decimal:0,2',
+            'unit' =>  Rule::in(['mg', 'ug', 'ml']),
+            'pieces_morning' => 'required|integer',
+            'pieces_midday' => 'required|integer',
+            'pieces_evening' => 'required|integer',
+            'pieces_night' => 'required|integer'
         ];
     }
 }

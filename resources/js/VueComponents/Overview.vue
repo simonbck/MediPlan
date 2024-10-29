@@ -21,10 +21,12 @@ export default {
     },
     methods: {
         checkMedicaments() {
-            const today = new Date();
+            const todayDate = new Date();
             const checkDate = Date.parse(date.value);
-            let days = Math.round((checkDate - today) / (1000 * 60 * 60 * 24));
-            days = days+2; //adding 2 days, for today and appointment for doctor | cronjob is running every day at 12am
+            let days = Math.round((checkDate - todayDate) / (1000 * 60 * 60 * 24));
+            const today = 1;
+            const appointmentDay = 1;
+            days = days+today+appointmentDay;
 
             for (const [key, value] of Object.entries(this.medicaments)) {
                 let pieces_per_day = value.pieces_morning+value.pieces_midday+value.pieces_evening+value.pieces_night;
@@ -41,7 +43,7 @@ export default {
                 pieces: this.medicament.pieces
             };
 
-            axios.post('/api/updatemedicament/'+this.medicament.id,  data).then(response => {
+            axios.patch('/api/medicament/'+this.medicament.id,  data).then(response => {
                 this.medicament = {};
                 this.toast.success({
                     title: response.data.title,
@@ -74,17 +76,18 @@ export default {
                 value.color = 'card text-white bg-success mb-3';
 
                 let pieces_per_day = value.pieces_morning+value.pieces_midday+value.pieces_evening+value.pieces_night;
-                let days = value.pieces / pieces_per_day - 1; //-1 for today
-                const today = new Date();
-                let till_date = today.setDate(today.getDate() + days)
+                const today = 1;
+                let days = value.pieces / pieces_per_day - today;
+                const todayDate = new Date();
+                let till_date = todayDate.setDate(todayDate.getDate() + days)
                 let year = new Intl.DateTimeFormat(navigator.language, { year: 'numeric' }).format(till_date);
                 let month = new Intl.DateTimeFormat(navigator.language, { month: 'numeric' }).format(till_date);
                 let day = new Intl.DateTimeFormat(navigator.language, { day: '2-digit' }).format(till_date);
-                console.log(`${day}-${month}-${year}`);
+
                 if(navigator.language === 'de') {
-                    value.on_stock_until = day+'.'+month+'.'+year;
+                    value.on_stock_until = `${day}.${month}.${year}`;
                 } else {
-                    value.on_stock_until = month+'-'+day+'-'+year;
+                    value.on_stock_until = `${month}-${day}-${year}`;
                 }
             }
         }
@@ -101,7 +104,7 @@ export default {
 
         <div class="col-6" v-for="(item, index) in medicaments" :key="index">
             <div :class="item.color">
-                <div class="card-header">{{ item.name+" "+item.dose }}</div>
+                <div class="card-header">{{ `${item.name} ${item.dose}` }}</div>
                 <div class="card-body">
                     <p class="card-text">{{ $t('overview.on_stock')}} {{ item.pieces }}<br>{{ $t('overview.on_stock_until')}} {{ item.on_stock_until }}</p>
                 </div>
@@ -134,7 +137,7 @@ export default {
                             <option v-for="(item, index) in medicaments"
                                     :value="item.id"
                                     :key="index">
-                                {{ item.name+" "+item.dose}}
+                                {{ `${item.name} ${item.dose}`}}
                             </option>
                         </select>
                     </div>
