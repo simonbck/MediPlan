@@ -24,7 +24,7 @@ class StoreMedicamentRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'dose' => 'required|integer',
+            'dose' => 'required|decimal:0,2',
             'unit' =>  Rule::in(['mg', 'ug', 'ml']),
             'pieces_morning' => 'required|integer',
             'pieces_midday' => 'required|integer',
